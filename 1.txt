@@ -1,0 +1,118 @@
+数组去重的几个方法
+方法一： findInArr方法+select方法组合
+
+findInArr ： 查找一个数在当前数组中是否存在，存在返回true，找完所有没有找到，返回false，这个数就是我们要操作的那个数组
+
+select ：循环数组，并调用findInArr方法 查找当前arr[i]在arr2中是否存在，如果返回false 那么就把当前这个数 arr[i] ，push到新的数组 arr2中，最后return arr2
+
+ 1 function findInArr(n ,arr){
+ 2     for (var i = 0; i < arr.length; i++) {
+ 3         if (n == arr[i]) {
+ 4 return true;
+ 5         }
+ 6     }
+ 7     return false;
+ 8 }
+ 9 function select (arr){
+10     var arr2 = ;
+11     for(var i = 0; i < arr.length; i++){
+12         if (!findInArr(arr[i],arr2)) {
+13  arr2.push(arr[i]);
+14         }
+15     }
+16     return arr2;
+17 }
+View Code
+
+方法二 ：利用json特性
+
+创建一个空的json，通过对key的检索，---> !json[arr[i]],取反说明不存在
+
+这样我们可以对其进行赋值，json[arr[i]] = true; 对于 赋什么值，随意，保证它的键值对就行
+
+并且把当前这个数push 或者其他方式都行 ，总是添加到新数组 arr2中，最后return arr2
+
+ 1 function select (arr){
+ 2     var json = {};
+ 3     var arr2 = ;
+ 4     for (var i = 0; i < arr.length; i++) {
+ 5         if (!json[arr[i]]) {
+ 6 json[arr[i]] = true;
+ 7  arr2.push(arr[i])
+ 8         }
+ 9     }
+10     return arr2;
+11 }
+View Code
+
+方法三： 相邻数比较法，这个方法前提是先用sort 进行简单排序，不需要改进版的
+
+经过sort排序之后，我们不论它排序是否正确，但是有一点我们能确定，那就是相同的一定被排到了一起
+
+那么我们对排序之后的数组遍历，并且让当前的数和下一个数进行比较，如果相等那么用splice(i,1) 方法对其进行删除，这时候i的值需要 i--，避免它少比一次，最后return arr;
+
+ 1 function select(arr){
+ 2     arr.sort;
+ 3     for (var i = 0; i < arr.length; i++) {
+ 4         if (arr[i] == arr[i+1]) {
+ 5 arr.splice(i,1)
+ 6 i--;
+ 7         }
+ 8     }
+ 9     return arr;
+10 }
+View Code
+
+方法四：使用数组的indexOf方法 （IE8--不兼容）
+
+通过判断arr2.indexOf(arr[i]) == -1 ，来确定新数组arr2中没有arr[i]，并将其添加到数组arr2中，最终返回 arr2
+
+1 function select (arr){
+2     var arr2 = ;
+3     for( var i = 0; i < arr.length; i++){
+4         if (arr2.indexOf(arr[i]) == -1) {
+5  arr2.push(arr[i])
+6         }
+7     }
+8     return arr2;
+9 }
+不同浏览器兼容问题
+csshack有哪些
+作用域和作用域链
+ES6的新内容
+闭包的功能
+window.onload和$(document).ready()区别
+
+
+什么是库什么是插件？
+库：它是一系列对象，方法的代码，我们通过引入库，来实现代码的重用，代码的精简。
+框架：它是一个系统中可以重用的一部分，它可能不仅仅包括一种代码和资源，它可能包括了子程序，库，胶水语言，图片等等一系列资源。
+所以，相对来说，框架的内容更加丰富，在某些情景中，它可能包括了多个库，多种脚本语言，多个子程序，图片等等。
+举个栗子~现在应用十份广泛的JQuery就是一个库。JQuery里面都是Javascript代码，当我们使用它的时候就引入了它里面的对象和方法，这一部分代码我们可以直接用来操作DOM，并且可以一直复用不需要重写。
+而我们熟知的Bootstrap就是来自Twitter的一款十分受欢迎的框架，它里面不仅仅是Javascript代码，还有HTML、CSS等，而且Bootstrap的Javascript部分是基于JQuery来写的，也就是说它还包含了JQuery库，所以说它是一款框架。
+js里的内置对象 date等
+
+
+// enter和leave  ？需要了解
+
+Bom 对象location的方法  search（主） hash（主） post主机 pastName 主机名 href
+
+栈内存 堆内存
+
+IE和dom的事件区别
+
+javascript本地对象 内置对象
+
+px em rem
+em可以因为父级元素的大小决定  16.5% 16px=1em
+
+多行设置省略号 单行设置省略号
+
+box-sizing
+
+cookie和web storage
+ 
+js中
+关键字 保留字
+
+img alt加载失败提示 是为了后端加载不出图片时通过alt找出，更方便操作
